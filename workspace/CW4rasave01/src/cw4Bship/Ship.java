@@ -52,7 +52,6 @@ public class Ship {
 	
 // instance methods
 	boolean okToPlaceShipAt(int row, int column, boolean horizontal, Ocean ocean){
-
 		if (horizontal){
 			//check horizontal neighbours
 			for(int i=column; i<this.length;i++){
@@ -61,7 +60,7 @@ public class Ship {
 			}
 		} else {
 			//check vertical neighbours
-			for(int i = row; i<this.length;i--){
+			for(int i = row; i>this.length;i--){
 				if(!goodShipPlace(i, column, ocean))
 					return false;
 			}
