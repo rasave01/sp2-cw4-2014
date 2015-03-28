@@ -14,7 +14,7 @@ import org.junit.Test;
 public class ShipTest {
 
 	@Test
-	public final void test() {
+	public final void testgoodShipPlace() {
 		int row=0;
 		int column=9;
 		
@@ -26,5 +26,23 @@ public class ShipTest {
 		
 		assertEquals("Wrong answer :( ", expectedOutput, actualOutput);
 	}
+	
+	@Test
+	public final void testokToPlaceShipAt() {
+		int row=9;
+		int column=9;
+		boolean horizontal=true;
+		
+		boolean expectedOutput=true;
+		
+		Ocean ocean = new Ocean();
+		
+		Ship emptySea = new EmptySea();
+		
+		boolean actualOutput = emptySea.okToPlaceShipAt(row, column, horizontal, ocean);
+		
+		assertEquals("Wrong answer :( ", expectedOutput, actualOutput);
+	}
+	
 
 }
