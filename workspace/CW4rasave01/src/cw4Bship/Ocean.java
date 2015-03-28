@@ -36,11 +36,9 @@ public class Ocean {
 	
 	//Returns true if the given location contains a ship, false if it does not.
 	boolean isOccupied(int row, int column){
-		boolean result=false;
 		if (ships[row][column] instanceof EmptySea){
-			result=true;
-		}
-		return result;
+			return false;
+		} else return true;
 	}
 	
 	//Place all ten ships randomly on the (initially empty)ocean. 

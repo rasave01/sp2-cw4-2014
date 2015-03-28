@@ -69,7 +69,7 @@ public class Ship {
 		return true;
 	}
 	
-	 private boolean goodShipPlace(int row, int column, Ocean ocean) {
+	 static boolean goodShipPlace(int row, int column, Ocean ocean) {
 
 		boolean ship=false;
 		boolean shipN = false;
