@@ -1,5 +1,9 @@
 package cw4Bship;
 
+/**
+ * @author Radu
+ *
+ */
 public class EmptySea extends Ship{
 	
 	// constructor
