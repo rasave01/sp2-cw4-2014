@@ -2,7 +2,8 @@ package cw4Bship;
 
 /**
  * @author Radu
- *
+ *@version 1.1
+ *@date 29/03/15
  */
 public class EmptySea extends Ship {
 

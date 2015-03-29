@@ -1,11 +1,12 @@
 package cw4Bship;
+/**
+ * @author Radu
+ *@version 1.1
+ *@date 29/03/15
+ */
 
 import java.util.Random;
 
-/**
- * @author Radu
- *
- */
 public class Ocean {
 
 	Ship[][] ships = new Ship[10][10];

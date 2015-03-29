@@ -1,9 +1,17 @@
 package cw4Bship;
-
+/**
+ * @author Radu
+ *@version 1.1
+ *@date 29/03/15
+ */
 import java.util.Scanner;
 
 public class BattleshipGame {
 
+	/**
+	 * @param args
+	 * Main program
+	 */
 	public static void main(String[] args) {
 		System.out
 				.println(">> Welcome to BATTLESHIPS, an SP2 coursework in Java, by Radu Asavei - March 2015");

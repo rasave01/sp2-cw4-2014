@@ -2,15 +2,17 @@ package cw4Bship;
 
 /**
  * @author Radu
- *
+ *@version 1.1
+ *@date 29/03/15
  */
 public class Ship {
-	// ocean row containing the bow (front) of the ship
+	/**
+	 *  ocean row containing the bow (front) of the ship
+	 */
 	int bowRow;
 
-	// ocean column containing the bow (front) of the ship
 	/**
-	 * 
+	 * ocean column containing the bow (front) of the ship
 	 */
 	int bowColumn;
 
