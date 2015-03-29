@@ -1,6 +1,7 @@
 package cw4Bship;
 
 import java.util.Random;
+import java.util.Scanner;
 
 /**
  * @author Radu
@@ -13,6 +14,9 @@ public class Ocean {
 	int hitCount;
 	int shipsSunk;
 
+	/**
+	 * Ocean constructor. Fills the ships array with empty seas
+	 */
 	Ocean() {
 		// initialise ships array
 		for (int i = 0; i < 10; i++) {
@@ -20,13 +24,15 @@ public class Ocean {
 				ships[i][j] = new EmptySea();
 			}
 		}
-		// boolean gameOver=false;
-		// int shotsFiered=0;
-		// int hitCount=0;
-		// int ShipsSunk=0;
+		boolean gameOver=false;
+		int shotsFiered=0;
+		int hitCount=0;
+		int ShipsSunk=0;
 	}
 
-	// print the ocean
+	/**
+	 * Prints the ocean
+	 */
 	void print() {
 		System.out.println("  0 1 2 3 4 5 6 7 8 9");
 		for (int i = 0; i < 10; i++) {
@@ -39,8 +45,8 @@ public class Ocean {
 		}
 	}
 
-	// Returns true if the given location contains a ship, false if it does not.
 	/**
+	 * Returns true if the given location contains a ship, false if it does not.
 	 * @param row
 	 * @param column
 	 * @return
@@ -52,18 +58,19 @@ public class Ocean {
 			return true;
 	}
 
-	// Place all ten ships randomly on the (initially empty)ocean.
-	// Place larger ships before smaller ones, to avoid ending up with no legal
-	// place to put a large ship
+	/**
+	 * Place all ten ships randomly on the (initially empty) ocean.
+	 * Place larger ships before smaller ones, to avoid ending up with no legal
+	 * place to put a ship
+	 */
 	void placeAllShipsRandomly() {
 		// Initialise paced battleships vars
 		int Bplaced = 0;
 		int Cplaced = 0;
 		int Dplaced = 0;
 		int Splaced = 0;
-		// place
+		// place battleship x 1
 		do {
-			// place battleship x 1
 			// generate random place for bow
 			int row = randomInt(0, 6);
 			int column = randomInt(0, 6);
@@ -86,9 +93,8 @@ public class Ocean {
 				}
 			}
 		} while (Bplaced < 1);
-
+		// place cruisers x 2
 		do {
-			// place cruisers x 2
 			// generate random place for bow
 			int row = randomInt(0, 7);
 			int column = randomInt(0, 7);
@@ -110,9 +116,8 @@ public class Ocean {
 				}
 			}
 		} while (Cplaced < 2);
-
+		// place destroyers x 3
 		do {
-			// place destroyers x 3
 			// generate random place for bow
 			int row = randomInt(0, 8);
 			int column = randomInt(0, 8);
@@ -134,9 +139,8 @@ public class Ocean {
 				}
 			}
 		} while (Dplaced < 3);
-
+		// place submarines x 4
 		do {
-			// place submarines x 4
 			// generate random place for bow
 			int row = randomInt(0, 9);
 			int column = randomInt(0, 9);
@@ -160,7 +164,12 @@ public class Ocean {
 		} while (Splaced < 4);
 	}
 
-	// returns a random integer between the two values, including the two values
+	/**
+	 * returns a random integer between the two values, including the two values
+	 * @param min
+	 * @param max
+	 * @return
+	 */
 	int randomInt(int min, int max) {
 		// generate random object
 		Random rndNo = new Random();
@@ -168,6 +177,38 @@ public class Ocean {
 		int range = max - min + 1;
 		// cast result to int from range and add smaller value
 		int result = rndNo.nextInt(range) + min;
+		return result;
+	}
+
+	public boolean isGameOver() {
+		// check if max number of ships have been sunk
+		if(this.getShipsSunk()==10)
+			return true;
+		return false;
+	}
+
+	private int getShipsSunk() {
+		// return global variable 
+		return shipsSunk;
+	}
+
+	public boolean shootAt(int row, int column) {
+		shotsFiered++;
+		if(isOccupied(row,column)){
+			if(this.ships[row][column].shootAt(row, column)){
+				hitCount++;	
+				return true;
+			}
+			
+		}
+		return false;
+	}
+	
+	boolean isWithinOcean(int row, int column){
+		boolean result = false;
+		if(row>=0 && row<=9 && column>=0 && column<=9){
+			result = true;
+		}
 		return result;
 	}
 }

@@ -14,7 +14,7 @@ public class Ship {
 	boolean horizontal;
 	
 // array telling whether that part of the ship has been hit
-	boolean [] hit;
+	boolean [] hit = new boolean [0];
 	
 // getters	
 	int getBowRow(){
@@ -199,13 +199,7 @@ public class Ship {
 	}
 	
 	// returns true if a location is legal for the ocean, false otherwise
-	boolean isWithinOcean(int row, int column){
-		boolean result = false;
-		if(row>=0 && row<=9 && column>=0 && column<=9){
-			result = true;
-		}
-		return result;
-	}
+	
 }	
 	
 		

@@ -1,5 +1,7 @@
 package cw4Bship;
 
+import java.util.Scanner;
+
 public class BattleshipGame {
 
 	public static void main(String[] args) {
@@ -17,6 +19,33 @@ public class BattleshipGame {
 		System.out.println(">> 4 x Submarines (S)");
 		System.out.println(">> Remember, all ships can be either vertical or horizontal");
 		System.out.println(">> and all ships are surrounded by empty water or edge of ocean.");
+		ocean.print();
+		while(!ocean.isGameOver()){
+			System.out.println(">> Take aim and shoot...");
+			Scanner in = new Scanner(System.in);
+			
+			System.out.println("Enter row (0-9):");
+			//get user input for row
+		
+			while(in.hasNextInt()){
+				int row=in.nextInt();
+			
+				System.out.println("Enter column (0-9):");
+				//get user input for row
+				while(in.hasNextInt()){
+					int column=in.nextInt();
+					
+					// shoot
+					if(ocean.shootAt(row, column)){
+						System.out.println("hit");
+					}else{
+						System.out.println("miss");
+					}
+					in.close();
+				}
+			}
+			
+		}
 		
 	}
 
