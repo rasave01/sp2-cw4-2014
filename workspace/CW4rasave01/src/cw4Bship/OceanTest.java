@@ -18,15 +18,15 @@ public class OceanTest {
 	 */
 	@Test
 	public final void testIsOccupied() {
-		int row=9;
-		int column=9;
-		
-		boolean expectedOutput=false;
-		
+		int row = 9;
+		int column = 9;
+
+		boolean expectedOutput = false;
+
 		Ocean ocean = new Ocean();
-		
+
 		boolean actualOutput = ocean.isOccupied(row, column);
-		
+
 		assertEquals("Wrong answer :( ", expectedOutput, actualOutput);
 	}
 

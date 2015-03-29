@@ -9,10 +9,10 @@ import java.util.Random;
 public class Ocean {
 
 	Ship[][] ships = new Ship[10][10];
-	boolean gameOver=false;
-	int shotsFiered=0;
-	int hitCount=0;
-	int shipsSunk=0;
+	boolean gameOver = false;
+	int shotsFiered = 0;
+	int hitCount = 0;
+	int shipsSunk = 0;
 
 	/**
 	 * Ocean constructor. Fills the ships array with empty seas
@@ -30,12 +30,17 @@ public class Ocean {
 	 * Prints the ocean
 	 */
 	void print() {
+		String print = "";
 		System.out.println("  0 1 2 3 4 5 6 7 8 9");
 		for (int i = 0; i < 10; i++) {
 			System.out.print(i + " ");
 			for (int j = 0; j < 10; j++) {
-				String point = ships[i][j].toString() + " ";
-				System.out.print(point);
+				if (this.ships[i][j].isSunk()) {
+					print = "x ";
+				} else {
+					print = ships[i][j].toString() + " ";
+				}
+				System.out.print(print);
 			}
 			System.out.print("\n");
 		}
@@ -43,6 +48,7 @@ public class Ocean {
 
 	/**
 	 * Returns true if the given location contains a ship, false if it does not.
+	 * 
 	 * @param row
 	 * @param column
 	 * @return
@@ -55,9 +61,9 @@ public class Ocean {
 	}
 
 	/**
-	 * Place all ten ships randomly on the (initially empty) ocean.
-	 * Place larger ships before smaller ones, to avoid ending up with no legal
-	 * place to put a ship
+	 * Place all ten ships randomly on the (initially empty) ocean. Place larger
+	 * ships before smaller ones, to avoid ending up with no legal place to put
+	 * a ship
 	 */
 	void placeAllShipsRandomly() {
 		// Initialise paced battleships vars
@@ -162,6 +168,7 @@ public class Ocean {
 
 	/**
 	 * returns a random integer between the two values, including the two values
+	 * 
 	 * @param min
 	 * @param max
 	 * @return
@@ -178,53 +185,57 @@ public class Ocean {
 
 	/**
 	 * checks if all 10 ships have been sunk
+	 * 
 	 * @return
 	 */
 	public boolean isGameOver() {
 		// check if max number of ships have been sunk
-		if(this.getShipsSunk()==10)
+		if (this.getShipsSunk() == 10)
 			return true;
 		return false;
 	}
 
 	/**
 	 * number of ships sunk so far
-	 * @return 
+	 * 
+	 * @return
 	 */
 	private int getShipsSunk() {
-		// return global variable 
+		// return global variable
 		return shipsSunk;
 	}
 
 	/**
-	 * Returns true if the given location contains a real ship, still afloat, 
-	 * (not an EmptySea), false if it does not. 
-	 * In addition, this method updates the number of shots that have been fired, and the number of hits.
-	 * Note: If a location contains a real ship, shootAt should return true every time
-	 * the user shoots at that same location. Once a ship has been sunk, additional shots
-	 * at its location should return false
+	 * Returns true if the given location contains a real ship, still afloat,
+	 * (not an EmptySea), false if it does not. In addition, this method updates
+	 * the number of shots that have been fired, and the number of hits. Note:
+	 * If a location contains a real ship, shootAt should return true every time
+	 * the user shoots at that same location. Once a ship has been sunk,
+	 * additional shots at its location should return false
+	 * 
 	 * @param row
 	 * @param column
 	 * @return
 	 */
 	public boolean shootAt(int row, int column) {
 		shotsFiered++;
-		if(this.ships[row][column].shootAt(row, column)){
-			hitCount++;	
+		if (this.ships[row][column].shootAt(row, column)) {
+			hitCount++;
 			return true;
 		}
 		return false;
 	}
-	
+
 	/**
 	 * Checks that row and column are within the ocean
+	 * 
 	 * @param row
 	 * @param column
 	 * @return
 	 */
-	boolean isWithinOcean(int row, int column){
+	boolean isWithinOcean(int row, int column) {
 		boolean result = false;
-		if(row>=0 && row<=9 && column>=0 && column<=9){
+		if (row >= 0 && row <= 9 && column >= 0 && column <= 9) {
 			result = true;
 		}
 		return result;
