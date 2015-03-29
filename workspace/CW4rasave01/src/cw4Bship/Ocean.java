@@ -16,10 +16,10 @@ public class Ocean {
 				ships[i][j] = new EmptySea();
 			}
 		}
-		boolean gameOver=false;
-		int shotsFiered=0;
-		int hitCount=0;
-		int ShipsSunk=0;
+//		boolean gameOver=false;
+//		int shotsFiered=0;
+//		int hitCount=0;
+//		int ShipsSunk=0;
 	}	
 	//print the ocean
 	void print(){	
@@ -45,31 +45,110 @@ public class Ocean {
 	//Place larger ships before smaller ones, to avoid ending up with no legal
 	//place to put a large ship
 	void placeAllShipsRandomly(){
-		// place 4 submarines
-		for(int i=0; i<4; i++){
-			
-			//Initialise placing cycle
-			boolean notPlaced=true;
-			do{
-				int row=randomInt(0,9);
-				int column=randomInt(0,9);
-				if(!isOccupied(row, column)){
-					//get horizontal randomly
-					boolean horizontal = false;
-					int rdnHorizontal=randomInt(0,1);
-					if(rdnHorizontal==1){
-						horizontal=true;
-					}
-					if (!isOccupied(row, column)){
-						if(ships[row][column].okToPlaceShipAt(row,column, horizontal, this)){
-							ships[row][column].placeShipAt(row,column, horizontal, this);
-							notPlaced=false;
-						}
-					}	
+		
+		//Initialise paced battleships vars
+		int Bplaced=0;
+		int Cplaced=0;
+		int Dplaced=0;
+		int Splaced=0;
+	// place 
+		do{
+		// place battleship x 1
+			//generate random place for bow
+			int row=randomInt(0,6);
+			int column=randomInt(0,6);
+			// check generated place is not occupied
+			if(!isOccupied(row, column)){
+				//get horizontal randomly
+				boolean horizontal = false;
+				int rdnHorizontal=randomInt(0,1);
+				if(rdnHorizontal==1){
+					horizontal=true;
 				}
-			}while (notPlaced==true);
-		}	
-	}
+				// create new ship
+				Battleship newBattleship = new Battleship();
+				if(newBattleship.okToPlaceShipAt(row,column, horizontal, this)){
+					// pace ship on the ocean
+					newBattleship.placeShipAt(row,column, horizontal, this);
+					// increase counter
+					Bplaced++;	
+				}	
+			}
+		}while (Bplaced<1);
+		
+		do{
+			// place cruisers x 2	
+			//generate random place for bow
+			int row=randomInt(0,7);
+			int column=randomInt(0,7);
+			// check generated place is not occupied
+			if(!isOccupied(row, column)){
+				//get horizontal randomly
+				boolean horizontal = false;
+				int rdnHorizontal=randomInt(0,1);
+				if(rdnHorizontal==1){
+					horizontal=true;
+				}
+				// create new ship
+				Cruiser newCruiser = new Cruiser();
+				if(newCruiser.okToPlaceShipAt(row,column, horizontal, this)){	
+					// pace ship on the ocean
+					newCruiser.placeShipAt(row,column, horizontal, this);
+					// increase counter
+					Cplaced++;
+				}	
+			}
+		}while (Cplaced<2);
+		
+		do{
+			// place destroyers x 3	
+			//generate random place for bow
+			int row=randomInt(0,8);
+			int column=randomInt(0,8);
+			// check generated place is not occupied
+			if(!isOccupied(row, column)){
+				//get horizontal randomly
+				boolean horizontal = false;
+				int rdnHorizontal=randomInt(0,1);
+				if(rdnHorizontal==1){
+					horizontal=true;
+				}
+				// create new ship
+				Destroyer newCruiser = new Destroyer();
+				if(newCruiser.okToPlaceShipAt(row,column, horizontal, this)){
+					// pace ship on the ocean
+					newCruiser.placeShipAt(row,column, horizontal, this);
+					// increase counter
+					Dplaced++;	
+				}	
+			}
+		}while (Dplaced<3);
+		
+		do{
+			// place submarines x 4	
+			//generate random place for bow
+			int row=randomInt(0,9);
+			int column=randomInt(0,9);
+			// check generated place is not occupied
+			if(!isOccupied(row, column)){
+				//get horizontal randomly
+				boolean horizontal = false;
+				int rdnHorizontal=randomInt(0,1);
+				if(rdnHorizontal==1){
+					horizontal=true;
+				}
+				// create new ship
+				Submarine newSubmarine = new Submarine();
+				if(newSubmarine.okToPlaceShipAt(row,column, horizontal, this)){
+					// pace ship on the ocean
+					newSubmarine.placeShipAt(row,column, horizontal, this);
+					// increase counter
+					Splaced++;	
+				}	
+			}
+		}while (Splaced<4);
+	}	
+	
 	//returns a random integer between the two values, including the two values
 	int randomInt(int min, int max){
 		//generate random object

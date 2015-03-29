@@ -54,14 +54,14 @@ public class Ship {
 	boolean okToPlaceShipAt(int row, int column, boolean horizontal, Ocean ocean){
 		if (horizontal){
 			//check horizontal neighbours
-			for(int i=column; i<this.length;i++){
-				if(!goodShipPlace(row,i, ocean))
+			for(int i=0; i<this.length;i++){
+				if(!goodShipPlace(row,column+i, ocean))
 					return false;
 			}
 		} else {
 			//check vertical neighbours
-			for(int i = row; i>this.length;i--){
-				if(!goodShipPlace(i, column, ocean))
+			for(int i = 0; i<this.length;i++){
+				if(!goodShipPlace(row+i, column, ocean))
 					return false;
 			}
 		}
@@ -103,7 +103,7 @@ public class Ship {
 				} else shipS=true;
 			}
 			
-			//check East of ship
+			//check East of ship is free
 			if(column==0){
 				shipE=true;
 			} else {
@@ -164,10 +164,28 @@ public class Ship {
 	}
 
 	void placeShipAt(int row, int column, boolean horizontal, Ocean ocean){
+		// Set bow
 		this.setBowRow(row);
 		this.setBowColumn(column);
+		//Set orientation
 		this.setHorizontal(horizontal);
-		ocean.ships[row][column]=this;
+		// Check orientation
+		if(horizontal){
+			// Place as many one-square ships as length of ship  
+			for(int i=0; i<this.length; i++){
+				// Destroy empty sea
+				ocean.ships[row][column+i]=null;
+				// Replace with reference to this object
+				ocean.ships[row][column+i]=this;
+			}
+		} else {
+			for(int i=0; i<this.length; i++){
+				// Destroy empty sea
+				ocean.ships[row+i][column]=null;
+				// Replace with reference to this object
+				ocean.ships[row+i][column]=this;
+			}	
+		}	
 	}
 	
 	boolean shootAt(int row, int column){
