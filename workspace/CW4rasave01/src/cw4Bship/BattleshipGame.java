@@ -24,36 +24,38 @@ public class BattleshipGame {
 					.println(">> Remember, all ships can be either vertical or horizontal");
 			System.out
 					.println(">> and all ships are surrounded by empty water or edge of ocean.");
-			
+
 			Scanner in = new Scanner(System.in);
 			// start game cycle and run until all ships have been sunk
 			while (!ocean.isGameOver()) {
 				System.out.println(">> Take aim and shoot...");
 
-				// get user input for row
-				System.out.println("Enter row (0-9):");
-				if (in.hasNextInt()) {
+				try {
+					// get user input for row
+					System.out.println("Enter row (0-9):");
 					int row = in.nextInt();
 
 					// get user input for column
 					System.out.println("Enter column (0-9):");
-					if (in.hasNextInt()) {
-						int column = in.nextInt();
-						// shoot
-						if (ocean.shootAt(row, column)) {
-							System.out.println(">> Your shot at " + row + ","
-									+ column + " is a hit");
-							if (ocean.ships[row][column].isSunk()) {
-								System.out.println(">> You just sunk a "
-										+ ocean.ships[row][column]
-												.getShipType());
-								ocean.shipsSunk++;
-							}
-						} else {
-							System.out.println(">> Your shot at " + row + ","
-									+ column + " is a miss");
+					int column = in.nextInt();
+
+					// shoot
+					if (ocean.shootAt(row, column)) {
+						System.out.println(">> Your shot at " + row + ","
+								+ column + " is a hit");
+						if (ocean.ships[row][column].isSunk()) {
+							System.out.println(">> You just sunk a "
+									+ ocean.ships[row][column].getShipType());
+							ocean.shipsSunk++;
 						}
+					} else {
+						System.out.println(">> Your shot at " + row + ","
+								+ column + " is a miss");
 					}
+				} catch (Exception e) {
+					System.out
+							.println(">> Only numbers betwen 0 and 9 are allowed");
+					in.next();
 				}
 			}
 
@@ -62,7 +64,8 @@ public class BattleshipGame {
 			ocean.print();
 			System.out.println(">> It took you " + ocean.shotsFiered
 					+ " shots to sink all ships. Well done!");
-			System.out.println("Would you like to play again (Y or y to play again)?");
+			System.out
+					.println("Would you like to play again (Y or y to play again)?");
 			playAgain = in.next().charAt(0);
 			in.close();
 		}
