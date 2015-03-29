@@ -1,7 +1,6 @@
 package cw4Bship;
 
 import java.util.Random;
-import java.util.Scanner;
 
 /**
  * @author Radu
@@ -10,9 +9,10 @@ import java.util.Scanner;
 public class Ocean {
 
 	Ship[][] ships = new Ship[10][10];
-	int shotsFiered;
-	int hitCount;
-	int shipsSunk;
+	boolean gameOver=false;
+	int shotsFiered=0;
+	int hitCount=0;
+	int shipsSunk=0;
 
 	/**
 	 * Ocean constructor. Fills the ships array with empty seas
@@ -24,10 +24,6 @@ public class Ocean {
 				ships[i][j] = new EmptySea();
 			}
 		}
-		boolean gameOver=false;
-		int shotsFiered=0;
-		int hitCount=0;
-		int ShipsSunk=0;
 	}
 
 	/**
@@ -180,6 +176,10 @@ public class Ocean {
 		return result;
 	}
 
+	/**
+	 * checks if all 10 ships have been sunk
+	 * @return
+	 */
 	public boolean isGameOver() {
 		// check if max number of ships have been sunk
 		if(this.getShipsSunk()==10)
@@ -187,23 +187,41 @@ public class Ocean {
 		return false;
 	}
 
+	/**
+	 * number of ships sunk so far
+	 * @return 
+	 */
 	private int getShipsSunk() {
 		// return global variable 
 		return shipsSunk;
 	}
 
+	/**
+	 * Returns true if the given location contains a real ship, still afloat, 
+	 * (not an EmptySea), false if it does not. 
+	 * In addition, this method updates the number of shots that have been fired, and the number of hits.
+	 * Note: If a location contains a real ship, shootAt should return true every time
+	 * the user shoots at that same location. Once a ship has been sunk, additional shots
+	 * at its location should return false
+	 * @param row
+	 * @param column
+	 * @return
+	 */
 	public boolean shootAt(int row, int column) {
 		shotsFiered++;
-		if(isOccupied(row,column)){
-			if(this.ships[row][column].shootAt(row, column)){
-				hitCount++;	
-				return true;
-			}
-			
+		if(this.ships[row][column].shootAt(row, column)){
+			hitCount++;	
+			return true;
 		}
 		return false;
 	}
 	
+	/**
+	 * Checks that row and column are within the ocean
+	 * @param row
+	 * @param column
+	 * @return
+	 */
 	boolean isWithinOcean(int row, int column){
 		boolean result = false;
 		if(row>=0 && row<=9 && column>=0 && column<=9){

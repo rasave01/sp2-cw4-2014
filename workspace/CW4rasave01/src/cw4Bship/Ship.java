@@ -14,7 +14,7 @@ public class Ship {
 	boolean horizontal;
 	
 // array telling whether that part of the ship has been hit
-	boolean [] hit = new boolean [0];
+	boolean [] hit = new boolean [1];
 	
 // getters	
 	int getBowRow(){
@@ -189,13 +189,22 @@ public class Ship {
 	}
 	
 	boolean shootAt(int row, int column){
-		boolean result=true;
-		return result;
+		if(this.getShipType()=="empty sea"){
+			return false;
+		} 
+		if(this.isHorizontal())
+			this.hit[column-this.getBowColumn()]=true;
+		this.hit[row-this.getBowRow()]=true;
+		return true;
 	}
 	
 	boolean isSunk(){
-		boolean result=true;
-		return result;
+		{
+			for(boolean sunk : this.hit){
+				if (!sunk) return false;
+			}
+		}
+		return true;
 	}
 	
 	// returns true if a location is legal for the ocean, false otherwise

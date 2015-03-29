@@ -13,40 +13,39 @@ public class BattleshipGame {
 		// place ships randomly
 		ocean.placeAllShipsRandomly();
 		System.out.println(">> All ships were placed randomly on rows or columns:");
-		System.out.println(">> 1 x Battleship (BBBB)");
-		System.out.println(">> 2 x Cruisers (CCC)");
-		System.out.println(">> 3 x Destroyers (DD)");
-		System.out.println(">> 4 x Submarines (S)");
+		System.out.println(">> 1 x Battleship (BBBB); 2 x Cruisers (CCC); 3 x Destroyers (DD); 4 x Submarines (S)");
 		System.out.println(">> Remember, all ships can be either vertical or horizontal");
 		System.out.println(">> and all ships are surrounded by empty water or edge of ocean.");
 		ocean.print();
+		Scanner in = new Scanner(System.in);
 		while(!ocean.isGameOver()){
 			System.out.println(">> Take aim and shoot...");
-			Scanner in = new Scanner(System.in);
 			
-			System.out.println("Enter row (0-9):");
 			//get user input for row
-		
-			while(in.hasNextInt()){
+			System.out.println("Enter row (0-9):");
+			if(in.hasNextInt()){
 				int row=in.nextInt();
-			
+				
+				//get user input for column
 				System.out.println("Enter column (0-9):");
-				//get user input for row
-				while(in.hasNextInt()){
+				if(in.hasNextInt()){
 					int column=in.nextInt();
-					
 					// shoot
 					if(ocean.shootAt(row, column)){
-						System.out.println("hit");
+						System.out.println(">> Your shot at "+row+","+column+" is a hit");
+						if(ocean.ships[row][column].isSunk()){
+							System.out.println(">> You just sunk a "+ ocean.ships[row][column].getShipType());
+							ocean.shipsSunk++;
+						}
 					}else{
-						System.out.println("miss");
+						System.out.println(">> Your shot at "+row+","+column+" is a miss");
 					}
-					in.close();
 				}
 			}
-			
 		}
-		
+		in.close();
+		System.out.println(">> Congratulations, you're a ***** WINNER *****");
+		System.out.println(">> It took you "+ocean.shotsFiered+ "shots to sink all ships." );
 	}
 
 }

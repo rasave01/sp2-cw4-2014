@@ -2,15 +2,19 @@ package cw4Bship;
 
 public class Cruiser extends Ship {
 	
-	boolean [] hit = new boolean[3];
-	
 	// constructor
 		public Cruiser() {
 			this.length=3;
+			this.hit = new boolean[3];
 		}
 		
 		@Override public String toString(){
 			return "C";
+		}
+		
+		@Override String getShipType(){
+			String ShipType = "cruiser";
+			return ShipType;
 		}
 	
 }
